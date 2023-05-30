@@ -1,3 +1,10 @@
 :root {
   background-color: #15171b;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  margin: auto;
+  overflow: auto;
 }

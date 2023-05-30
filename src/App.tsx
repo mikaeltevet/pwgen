@@ -29,7 +29,7 @@ const CHAR_SETS: { [key in keyof OptionsType]: string } = {
 }
 
 const App: React.FC = () => {
-  const [length, setLength] = useState<number>(16)
+  const [length, setLength] = useState<number>(24)
   const [options, setOptions] = useState<OptionsType>({
     lowercase: true,
     uppercase: true,
@@ -85,19 +85,19 @@ const App: React.FC = () => {
     const characterTypeCount =
       Object.values(characterTypes).filter(Boolean).length
 
-    if (password.length < 8 || characterTypeCount === 1) {
-      return 'Weak'
+    if (password.length >= 24 && characterTypeCount === 4) {
+      return 'Strong'
     }
 
-    if (password.length < 12 || characterTypeCount === 2) {
-      return 'Fair'
-    }
-
-    if (password.length < 16 || characterTypeCount === 3) {
+    if (password.length >= 18 && characterTypeCount >= 3) {
       return 'Good'
     }
 
-    return 'Strong'
+    if (password.length >= 12 || characterTypeCount >= 2) {
+      return 'Fair'
+    }
+
+    return 'Weak'
   }
 
   const getPasswordColor = (strength: string): string => {
@@ -120,6 +120,7 @@ const App: React.FC = () => {
       gutter='md'
       justify='center'
       style={{ margin: '2rem', padding: '1rem' }}
+      className='container'
     >
       <Col span={12} sm={8} md={6} lg={4}>
         <Paper shadow='lg' radius='md'>
@@ -197,7 +198,7 @@ const App: React.FC = () => {
               textAlign: 'center',
             }}
           >
-            <Text size='lg' style={{ color: '#fff' }}>
+            <Text size='md' style={{ color: '#fff' }}>
               {password}
             </Text>
             <Badge
